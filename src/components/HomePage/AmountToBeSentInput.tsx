@@ -15,7 +15,7 @@ const AmountToBeSentInput: React.FC = () => {
                 <input className='w-full px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-400'
                     placeholder='0.05'
                 />
-                <div className='flex items-center justify-center bg-rose-400 bg-opacity-55 py-2 px-4 rounded-md'>
+                <div className='flex items-center justify-center bg-rose-400 bg-opacity-85 py-2 px-4 rounded-md'>
                     <p className='font-semibold'>ETH</p>
                     <Image
                         src='/eth-logo.svg'

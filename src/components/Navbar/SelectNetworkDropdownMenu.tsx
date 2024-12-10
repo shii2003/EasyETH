@@ -34,16 +34,16 @@ const SelectNetworkDropdownMenu: React.FC = () => {
     return (
         <div className='relative' ref={networkDropdownRef}>
             <button
-                className=' flex gap-2 p-2 bg-rose-800 bg-opacity-40 border border-rose-900 text-white rounded-md focus:outline-none focus:rose-600'
+                className=' flex gap-2 p-2 bg-gradient-to-b from-rose-400 via-rose-500 to-rose-800    text-white rounded-md focus:outline-none font-semibold focus:rose-600'
                 onClick={toggleDropdown}
             >
                 {selectedOption}
                 <IoMdArrowDropdown className='mt-2' />
             </button>
             {isOpen && (
-                <ul className='absolute mt-2 bg-rose-800 border border-rose-950 rounded-md shadow-lg w-full'>
+                <ul className='absolute mt-2 bg-rose-400  bg-opacity-15  rounded-md shadow-lg w-full font-semibold'>
                     <li
-                        className='p-2 cursor-pointer hover:rose-700'
+                        className='p-2 cursor-pointer hover:bg-opacity-15 font-semibold'
                         onClick={() => selectOption(MAINNET)}
                     >
                         Mainnet

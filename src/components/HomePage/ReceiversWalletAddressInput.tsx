@@ -11,7 +11,7 @@ const ReceiversWalletAddressInput: React.FC = () => {
     }
 
     return (
-        <div className='p-4 flex gap-3 rounded-md bg-rose-400 bg-opacity-55'>
+        <div className='p-4 flex gap-3 rounded-md bg-gradient-to-b from-rose-400  to-rose-700 '>
 
             <div className=' w-full'>
                 <p
