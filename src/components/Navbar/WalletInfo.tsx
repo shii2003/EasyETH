@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import SelectNetworkDropdownMenu from './SelectNetworkDropdownMenu';
+import ConnectWallet from './ConnectWallet';
 
 const WalletInfo: React.FC = () => {
     const [network, setNetwork] = useState<string>('Mainnet');
@@ -10,8 +11,9 @@ const WalletInfo: React.FC = () => {
 
     };
     return (
-        <div>
+        <div className='flex gap-5'>
             <SelectNetworkDropdownMenu />
+            <ConnectWallet />
         </div>
     )
 }
