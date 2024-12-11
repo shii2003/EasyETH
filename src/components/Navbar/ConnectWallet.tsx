@@ -1,8 +1,6 @@
 import { useState } from "react";
-
 import { ImCancelCircle } from "react-icons/im";
-
-type availableWallets = 'Metamask' | 'Backpack' | 'Safe' | 'Injected';
+type availableWallets = 'Metamask' | 'Backpack' | 'Safe' | 'Injected' | 'Phantom ';
 
 const ConnectWallet: React.FC = () => {
 
@@ -42,10 +40,10 @@ const ConnectWallet: React.FC = () => {
                             />
                         </button>
                         <div className="flex w-full flex-col items-center p-3  gap-2 ">
-                            {["Injected", "Metamask", "Safe", "Backpack"].map((option) => (
+                            {["Injected", "Metamask", "Safe", "Backpack", "Phantom"].map((option) => (
                                 <button
                                     key={option}
-                                    onClick={() => handleWalletSelection(option)} // Set wallet and close menu
+                                    onClick={() => handleWalletSelection(option as availableWallets)} // Set wallet and close menu
                                     className="px-4 py-3 w-full   rounded-md font font-semibold border-2 border-neutral-800 hover:bg-neutral-800 text-white"
                                 >
                                     {option}

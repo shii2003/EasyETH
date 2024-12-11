@@ -22,7 +22,7 @@ const ReceiversWalletAddressInput: React.FC = () => {
                     type='text'
                     value={receiversWalletAddress}
                     onChange={handleInputChange}
-                    placeholder='0x1234........abcd'
+                    placeholder='eg: 0x1234........abcd'
                     className='w-full px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-400'
                 />
             </div>

@@ -1,13 +1,19 @@
-import SendersWindow from "@/components/HomePage/SendersWindow";
-import SendToWindow from "@/components/HomePage/SendToWindow";
-import Image from "next/image";
+"use client";
+import HomePage from "@/components/HomePage/HomePage";
+import { config } from "@/config/config";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { WagmiProvider } from "wagmi";
+
+const queryClient = new QueryClient();
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-9 items-center justify-center">
-      <SendToWindow />
-      <SendersWindow />
-    </div>
+
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <HomePage />
+      </QueryClientProvider>
+    </WagmiProvider>
 
   );
 }

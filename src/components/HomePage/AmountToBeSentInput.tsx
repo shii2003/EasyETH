@@ -24,6 +24,9 @@ const AmountToBeSentInput: React.FC = () => {
                         height={25}
                     />
                 </div>
+                <div className='flex items-center justify-center bg-rose-400 py-2 px-4 rounded-md font-semibold bg-opacity-85 hover:bg-opacity-45'>
+                    send
+                </div>
 
             </div>
             <div className='flex py-1 px-2 items-center '>

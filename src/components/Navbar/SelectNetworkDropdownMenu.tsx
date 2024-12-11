@@ -34,7 +34,7 @@ const SelectNetworkDropdownMenu: React.FC = () => {
     return (
         <div className='relative' ref={networkDropdownRef}>
             <button
-                className=' flex gap-2 p-2 bg-gradient-to-b from-rose-400 via-rose-500 to-rose-800    text-white rounded-md focus:outline-none font-semibold focus:rose-600'
+                className=' flex gap-2 p-2 bg-gradient-to-b from-rose-400 via-rose-500 to-rose-800 hover:bg-gradient-to-t from-rose-400 via-rose-500 to-rose-800   text-white rounded-md focus:outline-none font-semibold focus:rose-600'
                 onClick={toggleDropdown}
             >
                 {selectedOption}

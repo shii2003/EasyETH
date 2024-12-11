@@ -1,17 +1,61 @@
-import React from 'react';
+import { useWallet } from "@/context/WalletContext";
+import { useState } from "react";
+import { ImCancelCircle } from "react-icons/im";
+
+
+export type availableWallets = 'Metamask' | 'Backpack' | 'Safe' | 'Injected' | 'Phantom';
 
 type ConnectWalletProps = {
-
+    buttonStyle: string;
+    buttonTitle: string;
 };
 
-const ConnectWallet: React.FC<ConnectWalletProps> = () => {
+const ConnectWallet: React.FC<ConnectWalletProps> = ({ buttonStyle, buttonTitle }) => {
+    const { connectedWallet, setConnectedWallet } = useWallet();
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+    const openMenu = () => setIsMenuOpen(true);
+    const closeMenu = () => setIsMenuOpen(false);
+
+    const handleWalletSelection = (walletName: availableWallets) => {
+        setConnectedWallet(walletName);
+        closeMenu();
+    }
+
 
     return (
-        <button
-            className='px-4 py-2 bg-rose-400 bg-opacity-55 rounded-md'
-        >
-            connect
-        </button>
+        <>
+            <button
+                onClick={openMenu}
+                className={`p-2 text-white rounded-md font-semibold ${buttonStyle}`}
+            >
+                {connectedWallet ? connectedWallet : buttonTitle}
+            </button>
+
+            {isMenuOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="flex-col gap-3 bg-neutral-900 flex rounded-lg shadow-md w-[320px] max-w-md p-6 relative border-2 border-neutral-800">
+                        <button
+                            onClick={closeMenu}
+                            className="bg-rose-400 absolute top-2 right-2 p-1 rounded-full text-white hover:bg-rose-500"
+                        >
+                            <ImCancelCircle className="text-rose-50" width={20} height={20} />
+                        </button>
+                        <div className="flex w-full flex-col items-center p-3 gap-2">
+                            {["Injected", "Metamask", "Safe", "Backpack", "Phantom"].map((option) => (
+                                <button
+                                    key={option}
+                                    onClick={() => handleWalletSelection(option as availableWallets)} // Set wallet and close menu
+                                    className="px-4 py-3 w-full rounded-md font font-semibold border-2 border-neutral-800 hover:bg-neutral-800 text-white"
+                                >
+                                    {option}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     )
 }
 export default ConnectWallet;
