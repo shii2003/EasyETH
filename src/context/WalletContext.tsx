@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from "react";
 
-export type AvailableWallets = "Metamask" | "Backpack" | "Safe" | "Injected" | "Phantom";
+export type AvailableWallets = string | null;
 
 interface WalletContextProps {
     connectedWallet: AvailableWallets | null;

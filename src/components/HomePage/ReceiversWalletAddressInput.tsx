@@ -1,13 +1,20 @@
 "use client";
 
+import { useTransactionDetails } from '@/context/TransactionContext';
 import React, { useState } from 'react';
+import { isAddress } from 'viem';
 
 const ReceiversWalletAddressInput: React.FC = () => {
 
-    const [receiversWalletAddress, setReceiversWalletAddress] = useState<string>("");
+    const { receiversWalletAddress, setReceiversWalletAddress } = useTransactionDetails();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setReceiversWalletAddress(e.target.value);
+        const value = e.target.value;
+        if (isAddress(value)) {
+            setReceiversWalletAddress(e.target.value);
+        } else {
+            console.log("Invalid Ethereum Address Format.");
+        }
     }
 
     return (

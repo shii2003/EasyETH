@@ -1,6 +1,7 @@
 import { useWallet } from "@/context/WalletContext";
 import { useState } from "react";
 import { ImCancelCircle } from "react-icons/im";
+import { useConnect } from "wagmi";
 
 
 export type availableWallets = 'Metamask' | 'Backpack' | 'Safe' | 'Injected' | 'Phantom';
@@ -11,15 +12,21 @@ type ConnectWalletProps = {
 };
 
 const ConnectWallet: React.FC<ConnectWalletProps> = ({ buttonStyle, buttonTitle }) => {
+    const { connectors, connect } = useConnect();
     const { connectedWallet, setConnectedWallet } = useWallet();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const openMenu = () => setIsMenuOpen(true);
     const closeMenu = () => setIsMenuOpen(false);
 
-    const handleWalletSelection = (walletName: availableWallets) => {
-        setConnectedWallet(walletName);
-        closeMenu();
+    const handleWalletSelection = async (connector: any) => {
+        try {
+            await connect({ connector });
+            setConnectedWallet(connector.name);
+            closeMenu();
+        } catch (error) {
+            console.log("Failed to connect wallet:", error);
+        }
     }
 
 
@@ -42,13 +49,13 @@ const ConnectWallet: React.FC<ConnectWalletProps> = ({ buttonStyle, buttonTitle 
                             <ImCancelCircle className="text-rose-50" width={20} height={20} />
                         </button>
                         <div className="flex w-full flex-col items-center p-3 gap-2">
-                            {["Injected", "Metamask", "Safe", "Backpack", "Phantom"].map((option) => (
+                            {connectors.map((connector) => (
                                 <button
-                                    key={option}
-                                    onClick={() => handleWalletSelection(option as availableWallets)} // Set wallet and close menu
+                                    key={connector.uid}
+                                    onClick={() => handleWalletSelection(connector)} // Set wallet and close menu
                                     className="px-4 py-3 w-full rounded-md font font-semibold border-2 border-neutral-800 hover:bg-neutral-800 text-white"
                                 >
-                                    {option}
+                                    {connector.name}
                                 </button>
                             ))}
                         </div>
