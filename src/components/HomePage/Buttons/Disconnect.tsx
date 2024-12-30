@@ -1,3 +1,4 @@
+'use client';
 import { useWallet } from '@/context/WalletContext';
 import React from 'react';
 import { useDisconnect } from 'wagmi';

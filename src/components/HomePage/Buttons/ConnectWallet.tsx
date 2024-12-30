@@ -1,3 +1,4 @@
+'use client'
 import { useWallet } from "@/context/WalletContext";
 import { useState } from "react";
 import { ImCancelCircle } from "react-icons/im";

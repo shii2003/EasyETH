@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { FaGasPump } from "react-icons/fa";
 import { useSendTransaction } from 'wagmi';
 import { parseEther } from "viem";
+import { FaCheckCircle } from "react-icons/fa";
 import { useTransactionDetails } from '@/context/TransactionContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,33 +16,73 @@ const AmountToBeSentInput: React.FC = () => {
     const { amountToTransfer, setAmountToTransfer, receiversWalletAddress } = useTransactionDetails();
     const { sendTransaction, isPending, data: hash, isSuccess, error } = useSendTransaction();
 
-    async function sendTx() {
-        if (!amountToTransfer || !receiversWalletAddress) {
-            toast.error("Missing required fields for transaction.", {
-                position: "top-right",
-                theme: "dark",
-                progressClassName: "bg-rose-400"
+    const CustomToast: React.FC<{ message: string; emoji: string }> = ({ message, emoji }) => (
+        <div className='custom-toast'>
+            <span className='emoji'>
+                {emoji}
+            </span>
+            {message}
+        </div>
+    );
 
-            });
+    async function sendTx() {
+        if (!amountToTransfer) {
+            console.log("amout to transfer is missing")
+            toast(
+                <CustomToast
+                    message='Amount to transfer is missing.'
+                    emoji='🚨'
+                />
+            );
             return;
-        };
+        }
+        if (!receiversWalletAddress) {
+            toast(
+                <CustomToast
+                    message="Receiver's wallet address is missing."
+                    emoji='❌'
+                />
+            );
+            return;
+        }
         try {
+            toast(
+                <CustomToast
+                    message="Transaction is pending..." emoji="⏳"
+                />,
+                { autoClose: false }
+            );
             await sendTransaction({
                 to: receiversWalletAddress as `0x${string}`,
                 value: parseEther(amountToTransfer.toString()),
             })
+            toast.dismiss();
+            // toast.success(
+            //     <CustomToast
+            //         message="Transaction successful!"
+            //         emoji="✔️"
+            //     />
+            // );
         } catch (error) {
-            toast.error("Transaction failed:", {
-                position: "top-right",
-                theme: "dark",
-                progressClassName: "bg-rose-400"
-            });
+            toast.dismiss();
+            toast.error(
+                <CustomToast
+                    message="Transaction failed!"
+                    emoji="❌"
+                />
+            );
         }
     }
 
     return (
         <div className='flex-col p-4'>
-            <ToastContainer />
+            <ToastContainer
+                hideProgressBar
+                autoClose={3000}
+
+                theme="dark"
+                className="custom-toast-container"
+            />
             <div className='flex  gap-3'>
                 <div className='flex-col grow '>
                     <input
@@ -70,7 +111,7 @@ const AmountToBeSentInput: React.FC = () => {
 
                 <button
                     onClick={() => sendTx()}
-                    disabled={!amountToTransfer || !receiversWalletAddress || isPending}
+                    disabled={isPending}
                     className='flex items-center justify-center bg-rose-400 py-2 px-4 rounded-md font-semibold bg-opacity-85 hover:bg-opacity-45'>
                     send
                 </button>
@@ -83,7 +124,23 @@ const AmountToBeSentInput: React.FC = () => {
                 <p className='text-sm px-2 text-slate-300'>gas fee:</p>
             </div>
             {isPending && <div>confirming transaction...</div>}
-            {hash && <div> Transaction hash: {hash}</div>}
+            {hash &&
+                <div className='flex flex-col px-2 py-1 gap-2'>
+                    <p className='flex gap-2  items-center text-sm text-neutral-400 '>
+                        Transaction Successul
+                        <FaCheckCircle className='text-green-500' />
+                    </p>
+                    <div className='flex flex-col px-2 py-1 border text-sm border-green-500 rounded-md bg-green-500 bg-opacity-10' >
+                        <p className='text-neutral-400 font-medium'>
+                            Transaction hash:
+                        </p>
+                        <p className='text-blue-500 underline'>
+                            {hash}
+                        </p>
+                    </div>
+                </div>
+            }
+
         </div>
     )
 }

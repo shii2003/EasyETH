@@ -2,7 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
   @apply bg-neutral-900 text-white
 }
 
+.custom-toast-container .Toastify__toast {
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  line-height: 1.5;
+
+}
+
+/* Custom Toast Message */
+.custom-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.custom-toast .emoji {
+  font-size: 20px;
+}
+
+/* Success Toast */
+.Toastify__toast--success {
+  background-color: #1e7e34;
+  /* Dark green */
+}
+
+/* Error Toast */
+.Toastify__toast--error {
+  background-color: #dc3545;
+  /* Dark red */
+}
+
+/* Info Toast (Loading State) */
+.Toastify__toast--info {
+  background-color: #0056b3;
+  /* Dark blue */
+}

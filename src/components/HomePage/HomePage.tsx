@@ -1,9 +1,9 @@
 import React from 'react';
 import SendToWindow from './SendToWindow';
-import SendersWindow from './SendersWindow';
 import Navbar from '../Navbar/Navbar';
+import dynamic from 'next/dynamic';
 
-
+const SendersWindow = dynamic(() => import('./SendersWindow'), { ssr: false });
 
 const HomePage: React.FC = () => {
 
